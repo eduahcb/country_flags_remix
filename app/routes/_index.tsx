@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { useInView } from 'react-intersection-observer'
 
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { HeadersFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { 
   Await, 
   defer, 
@@ -29,6 +29,12 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "show countries" },
   ];
 };
+
+export const headers: HeadersFunction = ({
+  loaderHeaders,
+}) => ({
+  "Cache-Control": loaderHeaders.get("Cache-Control") ?? '',
+})
 
 export const loader = async ({ request}: LoaderFunctionArgs) => {
   const url = new URL(request.url);
