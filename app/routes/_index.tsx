@@ -49,6 +49,10 @@ export const loader = async ({ request}: LoaderFunctionArgs) => {
     name,
     region,
     countries: getAllCountries(reqUrl)
+  }, {
+    headers: {
+      "Cache-Control": "public, s-maxage=60, stale-while-revalidate=3600",
+    }
   })
 }
 
